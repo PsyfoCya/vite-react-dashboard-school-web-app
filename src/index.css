@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+
+:root {
+  font-family: 'Roboto Flex', sans-serif;
+
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  --color-primary: #192a56;
+  --color-secondary: #f5f6fa;
+  --color-accent: #ffd900;
+  --color-backdrop: #dcdde1;
+
+  --color-blue-tint: rgba(25, 42, 86, 0.9);
+  --color-blue-tint-secondary: rgba(25, 42, 86, 0.2);
+  --color-secondary-text: black;
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* remove default spacing */
+/* force styling of type through styling, rather than elements */
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* dark mode user-agent-styles */
+
+html {
+  color-scheme: dark light;
+  
+}
+
+a {
+  scroll-behavior: smooth;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: xx-large;
+  font-weight: 600;
+}
+
+/* min body height */
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  scroll-behavior: smooth;
+ 
+}
+
+/* responsive images/videos */
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  color: var(--color-primaary);
+  background-color: var(--color-accent);
+  border: none;
+  padding: .3rem 1.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--color-primaary);
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  transition: 500ms ease;
+}

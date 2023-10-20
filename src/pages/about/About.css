@@ -1,0 +1,39 @@
+.about__container {
+    display: block;
+    position: relative;
+    padding: 5.2rem;
+
+}
+
+.about__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.Content {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.Content p {
+    text-align: left;
+}
+
+.Content textarea {
+    resize: none;
+    background-color: var(--color-backdrop);
+    border: none;
+}
+
+.Content textarea:focus {
+    outline: none;
+    border: 1px solid var(--color-accent);
+}
+
+.Content button {
+    width: fit-content;
+    align-self: flex-end;
+}

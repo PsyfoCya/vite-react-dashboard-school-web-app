@@ -1,5 +1,38 @@
 .gallery__container {
-    display: block;
     position: relative;
     padding: 5.2rem;
+    display: block;
+    gap: 2rem;
 }
+
+.gallery__heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+img {
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* max-width: 100%; */
+    height: auto;
+    vertical-align: middle;
+}
+
+.image-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    padding: 5rem;
+}
+
+.image-container .center-div, .no-images-tag {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+

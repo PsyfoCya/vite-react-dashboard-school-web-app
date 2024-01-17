@@ -1,0 +1,28 @@
+.createBlog__container {
+    display: block;
+    position: relative;
+    padding: 5.2rem;
+    /* margin: 0 auto; */
+}
+
+
+
+.create-blog__textarea{
+    height: 15rem;
+    width: 50rem;
+}
+
+.createBlog__container form input {
+    width: 50rem;
+}
+
+.createBlog__container form {
+    width: fit-content;
+    margin-top: 3rem;
+}
+
+.createBlog__container form div {
+    display: flex;
+    flex-direction: column;
+}
+

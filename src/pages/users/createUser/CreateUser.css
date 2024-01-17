@@ -1,0 +1,22 @@
+.createUser__container {
+    display: block;
+    position: relative;
+    padding: 5.2rem;
+    
+}
+
+.createUser__container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: fit-content;
+    margin-top: 3rem;
+}
+
+.createUser__container form button {
+    width: fit-content;
+}
+
+.createUser__container form input {
+    width: 50rem;
+}

@@ -5,6 +5,16 @@
     
 }
 
+img{
+    display: block;
+    max-width: 100%;
+}
+
+.image_custom {
+    height: 18rem;
+    width: 50rem;
+}
+
 .posts__heading {
     display: flex;
     justify-content: space-between;
@@ -50,6 +60,7 @@
 .card-bottom p {
     text-align: left;
     padding: 1.4rem;
+    height: 10rem;
 }
 
 .card__buttons{
@@ -60,5 +71,9 @@
 
 .red {
     background-color: var(--color-red, rgba(255, 5, 46, 0.701));
+}
+
+.no-images-tag {
+    margin: 15% auto;
 }
 

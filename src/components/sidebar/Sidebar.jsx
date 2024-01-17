@@ -9,7 +9,8 @@ import { MdOutlineContacts } from "react-icons/md";
 import { SlPicture } from "react-icons/sl";
 import { FiUsers } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
-import {FiSettings} from 'react-icons/fi'
+import { FiSettings } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Sidebar = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -20,7 +21,7 @@ const Sidebar = () => {
 
   return (
     <div className={`container ${sidebarCollapsed ? "collapsed" : ""}`}>
-      {sidebarCollapsed ? <GiHamburgerMenu className="hamburger-icon" /> : ""}
+      <div>{sidebarCollapsed ? <GiHamburgerMenu className="hamburger-icon" onClick={toggleSidebar}/> : ""}</div>
       <nav className={`sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <div className="sidebar__logo" onClick={toggleSidebar}>
           TSS
@@ -66,21 +67,20 @@ const Sidebar = () => {
             </h3>
           </NavLink>
         </div>
-        <div className="sidebar__links bottom-0">
+        <div className="sidebar__links bottom-links">
           <NavLink>
             <h3>
-              <BiLogOut/>
+              <BiLogOut />
               LOG OUT
             </h3>
           </NavLink>
 
           <NavLink>
             <h3>
-              <FiSettings/>
+              <FiSettings />
               SETTINGS
             </h3>
           </NavLink>
-
         </div>
       </nav>
       <div className="content">

@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    
 }
 
 .Content p {
@@ -26,6 +27,8 @@
     resize: none;
     background-color: var(--color-backdrop);
     border: none;
+    text-indent: 1rem;
+    padding-top: 1rem;
 }
 
 .Content textarea:focus {

@@ -3,3 +3,47 @@
     position: relative;
     padding: 5.2rem;
 }
+
+.users__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.users__table-container {
+    width: 95%;
+    margin: 3rem auto;
+}
+
+.user__table {
+    width: 100%;
+    justify-content: center;
+}
+
+.users__table-headings {
+   font-weight: 800;
+   font-size: larger;
+    
+}
+
+td {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--color-primary);
+}
+
+.user__action-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.user__action-icons:hover {
+    cursor: pointer;
+    color: var(--color-accent);
+}
+
+.primary-color {
+    color: var(--color-primary);
+}

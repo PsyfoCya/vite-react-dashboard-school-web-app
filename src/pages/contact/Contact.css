@@ -12,6 +12,7 @@
     gap: 3rem;
     justify-content: center;
     width: 45rem;
+    margin: 0 auto;
 }
 
 .contact__form-content {
@@ -23,13 +24,12 @@
 }
 
 
-
-
 form input {
     width: 30rem;
     background-color: var(--color-backdrop);
     position: relative;
     border: none;
+    padding: .3rem;
 }
 
 form input:focus {
@@ -43,6 +43,7 @@ form textarea {
     position: relative;
     border: none;
     resize: none;
+    padding: .3rem;
 }
 
 form textarea:focus {

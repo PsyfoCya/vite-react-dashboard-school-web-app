@@ -9,6 +9,7 @@
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
+  justify-content: space-between;
   
  
 }
@@ -40,23 +41,12 @@
 }
 
 .top-1 {
-  position: relative;
-  top: 3rem;
-}
-
-.bottom-0 {
   position: absolute;
-  bottom: 0;
+  top: 10rem;
 }
 
-.margin-bottom {
-  position: relative;
-  bottom: 0;
-}
-
-.margin-bottom-2 {
-  position: relative;
-  /* margin-bottom: 10rem; */
+.bottom-links {
+  margin-bottom: 3rem;
 }
 
 .sidebar__links h3 {
@@ -93,8 +83,8 @@
 }
 
 .hamburger-icon {
-  font-size: 1.5rem;
-  color: var(--color-accent);
+ 
+
   cursor: pointer;
   display: inline-block;
   position: absolute;

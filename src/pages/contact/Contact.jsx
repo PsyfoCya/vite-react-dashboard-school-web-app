@@ -1,18 +1,34 @@
 import React from "react";
 import "./Contact.css";
 import { Header } from "../../components/header/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     email: "",
-    mobileNumber: "",
+    contactNumber: "",
     address: "",
     facebookLink: "",
     instagramLink: "",
-    tiktokLink: "",
+    tikTokLink: "",
     twitterLink: "",
   });
+
+  // useEffect(() => {
+  //   const fetchContact = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:8080/contact/all");
+  //       setFormData(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching contact data:', error);
+  //     }
+  //   };
+
+  //   fetchContact();
+  // }, []);
+
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,11 +38,16 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission logic here
-    // For example, you can send the data to a server or perform validation
-    console.log(formData);
+    try {
+      const response = await axios.post("http://localhost:8080/contact/save", formData);
+      console.log('Success:', response.data);
+      window.alert("Contact Saved Successfully");
+    } catch (error) {
+      console.error('Error:', error);
+      window.alert("Error saving contact information");
+    }
   };
 
   return (
@@ -47,12 +68,12 @@ const Contact = () => {
             />
           </div>
           <div className="contact__form-content">
-            <label htmlFor="mobileNumber">Mobile Number:</label>
+            <label htmlFor="contactNumber">Mobile Number:</label>
             <input
               type="tel"
-              id="mobileNumber"
-              name="mobileNumber"
-              value={formData.mobileNumber}
+              id="contactNumber"
+              name="contactNumber"
+              value={formData.contactNumber}
               onChange={handleChange}
             />
           </div>
@@ -86,12 +107,12 @@ const Contact = () => {
             />
           </div>
           <div className="contact__form-content">
-            <label htmlFor="tiktokLink">Tiktok Link:</label>
+            <label htmlFor="tikTokLink">Tiktok Link:</label>
             <input
               type="url"
-              id="tiktokLink"
-              name="tiktokLink"
-              value={formData.tiktokLink}
+              id="tikTokLink"
+              name="tikTokLink"
+              value={formData.tikTokLink}
               onChange={handleChange}
             />
           </div>

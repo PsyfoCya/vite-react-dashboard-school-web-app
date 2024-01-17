@@ -2,146 +2,131 @@ import React from "react";
 import "./Posts.css";
 import { Header } from "../../components/header/Header";
 import { FiEdit } from "react-icons/fi";
-import {AiFillDelete} from 'react-icons/ai'
+import { AiFillDelete } from "react-icons/ai";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import truncateText from "../../utils/truncateText";
+import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [isLoadingState, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/blog/getAll");
+      setBlogs(response.data);
+    } catch (error) {
+      setError(error);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/blog/${id}`
+      );
+
+      if (response.data.success) {
+        alert("Blog posting " + id + "deleted successfully")
+        setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.blogId !== id));
+      } else {
+        console.error("Failed to delete blog");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/editBlog/${id}`);
+  };
+
   return (
     <>
       <Header />
       <div className="posts__container">
         <div className="posts__heading">
-          <h1>OUR STORIES</h1> <button>CREATE POSTS</button>
-        </div>
-        <div className="posts__cards__container">
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
-              </div>
-            </div>
+          <h1>OUR STORIES</h1>
+          <div>
+            <Link className="link__btn" to="/createBlog">
+              CREATE POST
+            </Link>
           </div>
+        </div>
 
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
+        {isLoadingState ? (
+          <div className="center-div">
+            <div className="loader">
+              <div className="circle">
+                <div className="dot"></div>
+                <div className="outline"></div>
+              </div>
+              <div className="circle">
+                <div className="dot"></div>
+                <div className="outline"></div>
+              </div>
+              <div className="circle">
+                <div className="dot"></div>
+                <div className="outline"></div>
+              </div>
+              <div className="circle">
+                <div className="dot"></div>
+                <div className="outline"></div>
               </div>
             </div>
           </div>
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
-              </div>
-            </div>
+        ) : error ? (
+          <div className="center-div error">
+            <p>Failed to fetch blogs: {error.message}</p>
           </div>
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-top">
-              <img src="/public/images/IMG_8092.JPG" alt="School Kids" />
-            </div>
-            <div className="card-bottom">
-              <h3>How I retain and remember what I study</h3>
-              <div className="divider"></div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aspernatur reprehenderit nostrum sed nemo recusandae ad iusto,
-                nihil dolores id placeat quis tenetur eligendi autem animi
-                debitis consequatur alias, totam ullam.
-              </p>
-              <div className="card__buttons">
-                <button>
-                  <FiEdit />
-                </button>
-                <button className="red"><AiFillDelete/></button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+        ) : blogs.length > 0 ? (
+          <ul className="posts__cards__container">
+            {blogs.map((blog) => (
+              <li
+                key={blog.blogId}
+                style={{ listStyle: "none" }}
+                className="card"
+              >
+                <div className="card-top">
+                  <img
+                    src={`data:${blog.contentType};base64,${blog.img}`}
+                    alt={blog.imgName}
+                    className="image_custom"
+                  />
+                </div>
+                <div className="card-bottom">
+                  <h3>{blog.title}</h3>
+                  <div className="divider"></div>
+                  <p>{truncateText(blog.content, 50)}</p>
+                  <div className="card__buttons">
+                    <button onClick={() => handleEdit(blog.blogId)}>
+                      <FiEdit />
+                    </button>
+                    <button
+                      className="red"
+                      onClick={() => handleDelete(blog.blogId)}
+                    >
+                      <AiFillDelete />
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h2 className="no-images-tag">No Blogs</h2>
+        )}
       </div>
     </>
   );

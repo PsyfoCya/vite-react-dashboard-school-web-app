@@ -69,6 +69,7 @@
   color: var(--color-secondary);
 }
 
+
 .collapsed .sidebar {
   display: none;
 }

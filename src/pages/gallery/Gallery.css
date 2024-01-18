@@ -35,4 +35,7 @@ img {
     transform: translate(-50%, -50%);
 }
 
-
+.gallery__btn-bottom__container {
+    display: flex;
+    justify-content: flex-end;
+}

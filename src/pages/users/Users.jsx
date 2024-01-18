@@ -21,7 +21,8 @@ const Users = () => {
       setError(null); // Clear any previous errors
 
       try {
-        const response = await axios.get("http://localhost:8080/users/all");
+        const response = await axios.get("http://localhost:8080/users/details/all");
+        console.log(response.data)
         setUsers(response.data);
       } catch (error) {
         setError(error);

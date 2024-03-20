@@ -11,7 +11,7 @@ import { FiUsers } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AuthContext } from "../security/AuthContext";
+import { AuthContext, useAuth } from "../../security/AuthContext";
 
 const Sidebar = () => {
   // const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -19,12 +19,16 @@ const Sidebar = () => {
   // const toggleSidebar = () => {
   //   setSidebarCollapsed(!sidebarCollapsed);
   // };
-  const { sidebarCollapsed, setSidebarCollapsed } = useContext(AuthContext);
+  const { sidebarCollapsed, setSidebarCollapsed, logout } = useAuth();
 
   // console.log(sidebarCollapsed);
 
   const handleSideBarCollapse = () => {
     setSidebarCollapsed(!sidebarCollapsed);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -85,12 +89,10 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div className="sidebar__links bottom-links">
-          <NavLink>
-            <h3>
-              <BiLogOut />
-              LOG OUT
-            </h3>
-          </NavLink>
+          <h3 onClick={handleLogout}>
+            <BiLogOut />
+            LOG OUT
+          </h3>
 
           <NavLink>
             <h3>

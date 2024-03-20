@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiClient } from "../api/ApiClient";
 
 const CreateUserForm = () => {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ const CreateUserForm = () => {
 
   const createUser = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/create",
+      const response = await apiClient.post(
+        "/users/create",
         formik.values
       );
       console.log(response.data);

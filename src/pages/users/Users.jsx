@@ -6,10 +6,11 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
+import { apiClient } from "../../components/api/ApiClient";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -17,12 +18,13 @@ const Users = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      setLoading(true);
       setError(null); // Clear any previous errors
 
       try {
-        const response = await axios.get("http://localhost:8080/users/details/all");
-        console.log(response.data)
+        const response = await apiClient.get(
+          "/users/details/all"
+        );
+        console.log(response.data);
         setUsers(response.data);
       } catch (error) {
         setError(error);
@@ -41,12 +43,11 @@ const Users = () => {
 
   const handleDelete = async (userID) => {
     try {
-      await axios.delete(`http://localhost:8080/users/delete/${userID}`);
+      await apiClient.delete(`/users/delete/${userID}`);
       setUsers(users.filter((user) => user.id !== userID)); // Update the UI directly
       window.alert(`User ${userID} deleted successfully`);
     } catch (error) {
-      console.error(error); // Log the error for debugging
-      // Handle error gracefully, e.g., display an error message to the user
+      console.error(error);
     }
   };
 
@@ -85,9 +86,11 @@ const Users = () => {
                 </div>
               </div>
             </div>
-          ) : !users ? (
-            <p>No users found.</p>
-          ) : (
+          ) : error ? (
+            <div className="center-div error">
+              <p>Failed to fetch Users: {error.message}</p>
+            </div>
+          ) : users.length > 0 ? (
             <table className="user__table">
               <thead>
                 <tr className="users__table-headings">
@@ -119,6 +122,8 @@ const Users = () => {
                 ))}
               </tbody>
             </table>
+          ) : (
+            <h2 className="no-images-tag">No Users</h2>
           )}
         </div>
       </div>

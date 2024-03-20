@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./About.css";
 import { Header } from "../../components/header/Header";
 import axios from "axios";
+import { apiClient } from "../../components/api/ApiClient";
 
 const About = () => {
   const [about, setAbout] = useState();
@@ -24,7 +25,7 @@ const About = () => {
         return; // Exit the function if validation fails
       }
 
-      const response = await axios.post("http://localhost:8080/about/save", {
+      const response = await apiClient.post("/about/save", {
         aboutDescription: aboutDescription,
       });
 
@@ -68,8 +69,8 @@ const About = () => {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/mission/createOrReplace",
+      const response = await apiClient.post(
+        "/mission/createOrReplace",
         formData,
         {
           headers: {
@@ -119,8 +120,8 @@ const About = () => {
       formData.append("content", visionContent);
       formData.append("file", visionFile);
 
-      const response = await axios.post(
-        "http://localhost:8080/vision/createOrReplace",
+      const response = await apiClient.post(
+        "/vision/createOrReplace",
         formData,
         {
           headers: {

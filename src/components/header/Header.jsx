@@ -2,47 +2,50 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
-import { AuthContext } from "../security/AuthContext";
+import { AuthContext, useAuth } from "../../security/AuthContext";
+import { apiClient } from "../api/ApiClient";
+import { useParams } from "react-router-dom";
+
 
 export const Header = () => {
-  const [user, setUser] = useState(null);
+  const { sidebarCollapsed, setSidebarCollapsed, user } = useAuth();
+  const [userDetails, setUserDetails] = useState(null);
 
-  const { sidebarCollapsed, setSidebarCollapsed } = useContext(AuthContext);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await apiClient.get("/api/users/details");
+        setUserDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
 
-  // console.log(sidebarCollapsed);
+    // Fetch details only when not available in the context
+    if (!user) {
+      fetchUserDetails();
+    } else {
+      // Use user details from the context if available
+      setUserDetails(user);
+    }
+  }, [user]);
 
   const handleSideBarCollapse = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await axios.get("http://localhost:8080/users/details/1"); 
-      console.log(response.data)
-      setUser(response.data);
-    };
-
-    fetchUserData();
-  }, []);
-
   return (
     <div className="header__container">
-      <GiHamburgerMenu onClick={handleSideBarCollapse}/>
+      <GiHamburgerMenu onClick={handleSideBarCollapse} />
 
       <div className="header__user-details">
-        {/* <img
-          src="https://media.istockphoto.com/id/155596999/photo/young-south-african-girl-in-classroom.jpg?s=2048x2048&w=is&k=20&c=UQEeHJug5CdnJK50y61bqSaOG29unDz9hwkdV0U6m88="
-          alt=""
-        />
-        <p>Steve Kekane</p> */}
-        {user && (
+        {userDetails && (
           <>
             <img
               src="https://media.istockphoto.com/id/155596999/photo/young-south-african-girl-in-classroom.jpg?s=2048x2048&w=is&k=20&c=UQEeHJug5CdnJK50y61bqSaOG29unDz9hwkdV0U6m88="
               alt="profile picture"
             />
-            <p>{user.firstname} {user.lastname}</p>
+            <p>{userDetails.firstname} {userDetails.lastname}</p>
           </>
         )}
       </div>

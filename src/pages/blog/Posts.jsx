@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import truncateText from "../../utils/truncateText";
 import { useNavigate } from "react-router-dom";
+import { apiClient } from "../../components/api/ApiClient";
 
 const Posts = () => {
   const [blogs, setBlogs] = useState([]);
@@ -17,7 +18,7 @@ const Posts = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/blog/getAll");
+      const response = await apiClient.get("/api/blog/getAll");
       setBlogs(response.data);
     } catch (error) {
       setError(error);
@@ -33,8 +34,8 @@ const Posts = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/api/blog/${id}`
+      const response = await apiClient.delete(
+        `/api/blog/${id}`
       );
 
       if (response.data.success) {
@@ -108,7 +109,7 @@ const Posts = () => {
                 <div className="card-bottom">
                   <h3>{blog.title}</h3>
                   <div className="divider"></div>
-                  <p>{truncateText(blog.content, 50)}</p>
+                  <p>{truncateText(blog.content, 30)}</p>
                   <div className="card__buttons">
                     <button onClick={() => handleEdit(blog.blogId)}>
                       <FiEdit />

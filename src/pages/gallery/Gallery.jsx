@@ -2,21 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Gallery.css";
 import { Header } from "../../components/header/Header";
 import axios from "axios";
+import { apiClient } from "../../components/api/ApiClient";
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoadingState, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchImages = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8080/all");
+      const response = await apiClient.get("/all");
       setImages(response.data);
     } catch (error) {
+      setError("Network error");
       console.error(error);
-      setError("Failed to fetch images.");
     } finally {
       setLoading(false);
     }
@@ -39,7 +40,7 @@ const Gallery = () => {
       formData.append("file", image2);
       formData.append("event", "event");
 
-      await axios.post("http://localhost:8080/upload", formData, {
+      await apiClient.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -72,7 +73,7 @@ const Gallery = () => {
   const handleDeleteAll = async () => {
     try {
       setLoading(true);
-      const response = await axios.delete("http://localhost:8080/delete-all");
+      const response = await apiClient.delete("/delete-all");
 
       if (response.status === 204) {
         // Images deleted successfully
@@ -136,7 +137,7 @@ const Gallery = () => {
             {/* <button type="submit">Submit</button> */}
           </form>
         </div>
-        <div className="image-container">
+        {/* <div className="image-container">
           {images.length > 0 ? (
             images.map((image) => (
               <img
@@ -145,7 +146,7 @@ const Gallery = () => {
                 alt={image.imgName}
               />
             ))
-          ) : loading ? (
+          ) : isLoadingState ? (
             <div className="center-div">
               <div class="loader">
                 <div class="circle">
@@ -169,7 +170,46 @@ const Gallery = () => {
           ) : (
             <h2 className="no-images-tag">No Images...</h2>
           )}
+        </div> */}
+        <div className="image-container">
+          {isLoadingState ? (
+            <div className="center-div">
+              <div className="loader">
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+              </div>
+            </div>
+          ) : error ? (
+            <div className="center-div error">
+              <p>Failed to fetch images: {error}</p>
+            </div>
+          ) : images.length > 0 ? (
+            images.map((image) => (
+              <img
+                key={image.id}
+                src={`data:image/${image.imgType};base64, ${image.img}`}
+                alt={image.imgName}
+              />
+            ))
+          ) : (
+            <h2 className="no-images-tag">No Images...</h2>
+          )}
         </div>
+
         {images.length > 0 && (
           <div className="gallery__btn-bottom__container">
             <button onClick={handleDeleteAll}>Clear Gallery</button>

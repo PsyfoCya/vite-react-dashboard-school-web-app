@@ -17,6 +17,9 @@
   --color-blue-tint-secondary: rgba(25, 42, 86, 0.2);
   --color-secondary-text: black;
 
+  --color-gradient-radial: radial-gradient(circle farthest-corner at center center, #ffffff 15%, #dcdde1 80%, #dcdde1 50%);
+
+
 }
 
 *,

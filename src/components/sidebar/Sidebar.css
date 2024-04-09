@@ -72,15 +72,18 @@
 
 .collapsed .sidebar {
   display: none;
+
 }
 
 .collapsed .container {
   flex-direction: row;
+  
 }
 
 .collapsed .content {
   flex: 1;
   /* padding: 1rem; */
+  
 }
 
 .hamburger-icon {

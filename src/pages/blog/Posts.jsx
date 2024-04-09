@@ -5,20 +5,34 @@ import { FiEdit } from "react-icons/fi";
 import { AiFillDelete } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import truncateText from "../../utils/truncateText";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "../../components/api/ApiClient";
+import { useAuth } from "../../security/AuthContext";
 
 const Posts = () => {
   const [blogs, setBlogs] = useState([]);
   const [isLoadingState, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
   const navigate = useNavigate();
+
+  // const fetchBlogs = async () => {
+  //   try {
+  //     const response = await apiClient.get("/api/blog/getAll");
+  //     setBlogs(response.data);
+  //   } catch (error) {
+  //     setError(error);
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const fetchBlogs = async () => {
     try {
-      const response = await apiClient.get("/api/blog/getAll");
+      const response = await apiClient.get(`/api/blog/user/${user.id}`); // Updated endpoint
       setBlogs(response.data);
     } catch (error) {
       setError(error);
@@ -34,12 +48,10 @@ const Posts = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await apiClient.delete(
-        `/api/blog/${id}`
-      );
+      const response = await apiClient.delete(`/api/blog/${id}`);
 
       if (response.data.success) {
-        alert("Blog posting " + id + "deleted successfully")
+        alert("Blog posting " + id + "deleted successfully");
         setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.blogId !== id));
       } else {
         console.error("Failed to delete blog");

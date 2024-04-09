@@ -1,0 +1,22 @@
+/* SignUp.css */
+.form__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form__content {
+    width: 100%;
+    max-width: 300px;
+}
+
+.form__input,
+.form__select,
+.form__button {
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+}

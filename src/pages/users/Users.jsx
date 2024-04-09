@@ -22,7 +22,7 @@ const Users = () => {
 
       try {
         const response = await apiClient.get(
-          "/users/details/all"
+          "/users/all"
         );
         console.log(response.data);
         setUsers(response.data);

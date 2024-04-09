@@ -1,4 +1,4 @@
-.login-form__container {
+/* .login-form__container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,4 +115,27 @@
   color: var(--color-primary);
   border: 2px solid var(--main-color);
 
+} */
+
+/* Login.css */
+.login-form__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form__content {
+  width: 100%;
+  max-width: 300px;
+}
+
+.login-form__input,
+.login-form__button {
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
 }

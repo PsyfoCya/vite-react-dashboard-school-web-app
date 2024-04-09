@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Sidebar.css";
-import { useState } from "react";
+// import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TfiCommentAlt } from "react-icons/tfi";
@@ -10,20 +10,16 @@ import { SlPicture } from "react-icons/sl";
 import { FiUsers } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { AuthContext, useAuth } from "../../security/AuthContext";
+// import { GiHamburgerMenu } from "react-icons/gi";
+import { useAuth } from "../../security/AuthContext";
 
 const Sidebar = () => {
-  // const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-  // const toggleSidebar = () => {
-  //   setSidebarCollapsed(!sidebarCollapsed);
-  // };
-  const { sidebarCollapsed, setSidebarCollapsed, logout } = useAuth();
+  const { sidebarCollapsed, setSidebarCollapsed, logout, user } = useAuth();
 
   // console.log(sidebarCollapsed);
 
   const handleSideBarCollapse = () => {
+    // console.log("User ", user.roles);
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
@@ -33,58 +29,85 @@ const Sidebar = () => {
 
   return (
     <div className={`container ${sidebarCollapsed ? "collapsed" : ""}`}>
-      <div>
-        {/* {sidebarCollapsed ? (
-          <GiHamburgerMenu
-            className="hamburger-icon"
-            onClick={handleSideBarCollapse}
-          />
-        ) : (
-          ""
-        )} */}
-      </div>
+      <div></div>
       <nav className={`sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <div className="sidebar__logo" onClick={handleSideBarCollapse}>
           TSS
         </div>
         <div className="sidebar__links top-1">
-          <NavLink to="/">
+          <NavLink
+            to="/"
+            style={{
+              display: user?.roles?.includes("ROLE_ADMIN") ? "block" : "none",
+            }}
+          >
             <h3>
               <LuLayoutDashboard /> DASHBOARD
             </h3>
           </NavLink>
 
-          <NavLink to="/posts">
+          <NavLink
+            to="/posts"
+            style={{
+              display: user?.roles?.includes("ROLE_CONTENT_CREATOR")
+                ? "block"
+                : "none",
+            }}
+          >
             <h3>
               <TfiCommentAlt /> BLOG
             </h3>
           </NavLink>
-
-          <NavLink to="/about">
+          <NavLink
+            to="/about"
+            style={{
+              display: user?.roles?.includes("ROLE_ADMIN") ? "block" : "none",
+            }}
+          >
             <h3>
               <AiOutlineInfoCircle />
               ABOUT
             </h3>
           </NavLink>
-
-          <NavLink to="/contact">
+          <NavLink
+            to="/contact"
+            style={{
+              display: user?.roles?.includes("ROLE_ADMIN") ? "block" : "none",
+            }}
+          >
             <h3>
               <MdOutlineContacts />
               CONTACT
             </h3>
           </NavLink>
-
-          <NavLink to="/gallery">
+          <NavLink
+            to="/gallery"
+            style={{
+              display: user?.roles?.includes("ROLE_CONTENT_CREATOR")
+                ? "block"
+                : "none",
+            }}
+          >
             <h3>
               <SlPicture />
               GALLERY
             </h3>
           </NavLink>
-
+          {/* 
           <NavLink to="/users">
             <h3>
               <FiUsers />
               USERS
+            </h3>
+          </NavLink> */}
+          <NavLink
+            to="/users"
+            style={{
+              display: user?.roles?.includes("ROLE_ADMIN") ? "block" : "none",
+            }}
+          >
+            <h3>
+              <FiUsers /> USERS
             </h3>
           </NavLink>
         </div>
